@@ -415,11 +415,11 @@ export function Header() {
                   </AvatarContainer>
                 )}
               </div>
-              <div className="flex flex-1 justify-end md:justify-center">
-                <MobileNavigation className="pointer-events-auto md:hidden" />
-                <DesktopNavigation className="pointer-events-auto hidden md:block" />
+              <div className="flex flex-1 justify-end lg:justify-center">
+                <MobileNavigation className="pointer-events-auto lg:hidden" />
+                <DesktopNavigation className="pointer-events-auto hidden lg:block" />
               </div>
-              <div className="flex justify-end md:flex-1">
+              <div className="flex justify-end lg:flex-1">
                 <div className="pointer-events-auto">
                   <ModeToggle />
                 </div>

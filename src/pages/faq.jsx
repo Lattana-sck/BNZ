@@ -3,13 +3,32 @@ import Head from 'next/head'
 import { Card } from '@/components/Card'
 import { Section } from '@/components/sections/Section'
 import { SimpleLayout } from '@/components/layouts/SimpleLayout'
+import { useState } from 'react'
 
-function ToolsSection({ children, ...props }) {
+function SpeakingSection({ children, ...props }) {
   return (
     <Section {...props}>
-      <ul role="list" className="space-y-16">
-        {children}
-      </ul>
+      <div className="space-y-16">{children}</div>
+    </Section>
+  )
+}
+function ToolsSection({ children, title, ...props }) {
+  const [isOpen, setIsOpen] = useState(false)
+
+  const toggleOpen = () => setIsOpen(!isOpen)
+
+  return (
+    <Section {...props}>
+      <div>
+        <button className="text-sm font-bold text-white animate-bounce" onClick={toggleOpen}>
+          {title}
+        </button>
+      </div>
+      {isOpen && (
+        <ul role="list" className="">
+          {children}
+        </ul>
+      )}
     </Section>
   )
 }
@@ -29,89 +48,84 @@ export default function Uses() {
   return (
     <>
       <Head>
-        <title>Uses - Spencer Sharp</title>
-        <meta
-          name="description"
-          content="Software I use, gadgets I love, and other things I recommend."
-        />
+        <title>BNZ - FAQ & Guides</title>
+        <meta name="description" content="Faq and guides for BNZ." />
       </Head>
       <SimpleLayout
-        title="Software I use, gadgets I love, and other things I recommend."
-        intro="I get asked a lot about the things I use to build software, stay productive, or buy to fool myself into thinking I’m being productive when I’m really just procrastinating. Here’s a big list of all of my favorite stuff."
+        title="FAQ & Guides de BNZ"
+        intro="Retrouvez ici les réponses aux questions les plus fréquentes et les guides pour vous aider à utiliser BNZ."
       >
-        <div className="space-y-20">
-          <ToolsSection title="Workstation">
-            <Tool title="16” MacBook Pro, M1 Max, 64GB RAM (2021)">
-              I was using an Intel-based 16” MacBook Pro prior to this and the
-              difference is night and day. I’ve never heard the fans turn on a
-              single time, even under the incredibly heavy loads I put it
-              through with our various launch simulations.
-            </Tool>
-            <Tool title="Apple Pro Display XDR (Standard Glass)">
-              The only display on the market if you want something HiDPI and
-              bigger than 27”. When you’re working at planetary scale, every
-              pixel you can get counts.
-            </Tool>
-            <Tool title="IBM Model M SSK Industrial Keyboard">
-              They don’t make keyboards the way they used to. I buy these any
-              time I see them go up for sale and keep them in storage in case I
-              need parts or need to retire my main.
-            </Tool>
-            <Tool title="Apple Magic Trackpad">
-              Something about all the gestures makes me feel like a wizard with
-              special powers. I really like feeling like a wizard with special
-              powers.
-            </Tool>
-            <Tool title="Herman Miller Aeron Chair">
-              If I’m going to slouch in the worst ergonomic position imaginable
-              all day, I might as well do it in an expensive chair.
-            </Tool>
-          </ToolsSection>
-          <ToolsSection title="Development tools">
-            <Tool title="Sublime Text 4">
-              I don’t care if it’s missing all of the fancy IDE features
-              everyone else relies on, Sublime Text is still the best text
-              editor ever made.
-            </Tool>
-            <Tool title="iTerm2">
-              I’m honestly not even sure what features I get with this that
-              aren’t just part of the macOS Terminal but it’s what I use.
-            </Tool>
-            <Tool title="TablePlus">
-              Great software for working with databases. Has saved me from
-              building about a thousand admin interfaces for my various projects
-              over the years.
-            </Tool>
-          </ToolsSection>
-          <ToolsSection title="Design">
-            <Tool title="Figma">
-              We started using Figma as just a design tool but now it’s become
-              our virtual whiteboard for the entire company. Never would have
-              expected the collaboration features to be the real hook.
-            </Tool>
-          </ToolsSection>
-          <ToolsSection title="Productivity">
-            <Tool title="Alfred">
-              It’s not the newest kid on the block but it’s still the fastest.
-              The Sublime Text of the application launcher world.
-            </Tool>
-            <Tool title="Reflect">
-              Using a daily notes system instead of trying to keep things
-              organized by topics has been super powerful for me. And with
-              Reflect, it’s still easy for me to keep all of that stuff
-              discoverable by topic even though all of my writing happens in the
-              daily note.
-            </Tool>
-            <Tool title="SavvyCal">
-              Great tool for scheduling meetings while protecting my calendar
-              and making sure I still have lots of time for deep work during the
-              week.
-            </Tool>
-            <Tool title="Focus">
-              Simple tool for blocking distracting websites when I need to just
-              do the work and get some momentum going.
-            </Tool>
-          </ToolsSection>
+        <div>
+          <SpeakingSection title="Guide du crowdfunding">
+            <ToolsSection title="Cliquez">
+              <Tool title="Qu'est-ce que c'est ?">
+                Le crowdfunding, ou financement participatif, est un mécanisme
+                de levée de fonds, qui repose sur le recours à une communauté
+                d&apos;investisseurs (« la foule », &quot;the crowd&quot; en
+                anglais) pour financer le développement d&apos;un projet. Il
+                vise notamment à démocratiser l&apos;accès au financement de
+                l&apos;économie pour les particuliers. Il représente ainsi
+                l&apos;une des rares alternatives aux circuits de financement
+                traditionnels.
+              </Tool>
+              <Tool title="Les différentes familles du crowdfunding">
+                Le crowdfunding se destine à aider des porteurs de projets
+                naissants et dans les premières années de leur développement.
+                Pour chaque besoin de financement en amorçage, une solution de
+                crowdfunding existe. Trois grandes familles de plateformes
+                permettent d&apos;accompagner les porteurs de projets pour les
+                différents besoins de financement qu&apos;ils peuvent exprimer.
+                De quelques centaines ou milliers d&apos;euros en dons aux
+                centaines de milliers d&apos;euros de capital, le crowdfunding a
+                une solution pour accompagner entrepreneurs et créatifs. Les
+                trois grands modèles du crowdfunding aujourd&apos;hui sont le
+                don contre don, le prêt et l&apos;investissement en capital.
+              </Tool>
+            </ToolsSection>
+          </SpeakingSection>
+          <SpeakingSection title="Guide de l'investisseur">
+            <ToolsSection title="Guide de l'investisseur">
+              <Tool title="Qu'est-ce que l'investissement ?">
+                Investir, c&apos;est financer l&apos;activité d&apos;une
+                entreprise en contrepartie d&apos;une part de son capital,
+                proportionnelle au soutien financier accordé.
+                L&apos;investissement confère une part de propriété de
+                l&apos;entreprise. Ainsi, l&apos;investissement est avant tout
+                un partenariat entre un investisseur et un entrepreneur.
+                L&apos;investisseur apporte des fonds, mais aussi une culture du
+                challenge sur le plan stratégique, et une culture du reporting à
+                l&apos;entrepreneur. L&apos;entrepreneur lui octroie en échange
+                un droit de propriété sur l&apos;entreprise, qui s&apos;exprime
+                sous la forme de la propriété d&apos;une partie de la valeur de
+                l&apos;entreprise sous forme d&apos;actions, et d&apos;un droit
+                de regard sur la stratégie de l&apos;entreprise sous la forme
+                d&apos;un droit de vote en Assemblée Générale. On peut
+                distinguer deux types d&apos;investissement : le capital
+                investissement, qui s&apos;exerce dans des entreprises non
+                cotées, et l&apos;investissement en Bourse, qui s&apos;exerce
+                dans des entreprises ayant effectué une introduction sur le
+                marché. Pour la petite histoire, l&apos;investissement en
+                capital est né aux Etats-Unis, grâce à un Français, le général
+                Doriot, qui a réalisé avec son fonds American Research and
+                Development Corp., l&apos;un des plus beaux deals de
+                l&apos;Histoire, en investissant dans Digital Equipment
+                Corporation, dont la valeur a été multipliée par 6000 en 11 ans
+                ! Aujourd&apos;hui, les Etats-Unis sont toujours le plus gros
+                marché en termes d&apos;investissement, grâce à une culture
+                positive du risque et de l&apos;échec et à une histoire marquée
+                par l&apos;investissement, mais le Royaume-Uni, l&apos;Allemagne
+                et la France restent néanmoins des acteurs importants de
+                l&apos;investissement.
+              </Tool>
+            </ToolsSection>
+          </SpeakingSection>
+          <SpeakingSection title="F.A.Q.">
+            <ToolsSection title="FAQ">
+              <Tool title="Questions ?">
+                Réponses Blabla
+              </Tool>
+            </ToolsSection>
+          </SpeakingSection>
         </div>
       </SimpleLayout>
     </>
