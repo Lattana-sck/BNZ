@@ -37,7 +37,6 @@ function DesktopNavigation(props) {
         <NavItem href="/faq">FAQ & guides</NavItem>
         <NavItem href="/register">Inscription</NavItem>
         <NavItem href="/login">Connexion</NavItem>
-        <button>Metamask</button>
       </ul>
     </nav>
   )
