@@ -1,5 +1,5 @@
-import { Container } from '@/components/layouts/Container'
-import MetamaskButton from '@/components/ui/MetamaskButton'
+import NftCards from '@/components/marketplace/Cards/NftCards'
+import Navbar from '@/components/marketplace/Navbar'
 import Head from 'next/head'
 import React from 'react'
 
@@ -8,20 +8,39 @@ function marketplace() {
     <>
       <Head>
         <title>BNZ - Marketplace</title>
-        <meta
-          name="description"
-          content="BNZ - marketplace"
-        />
+        <meta name="description" content="BNZ - marketplace" />
       </Head>
-      <Container className="mt-16 sm:mt-32">
-        <div className="grid grid-cols-1 gap-y-16 lg:grid-cols-2 lg:grid-rows-[auto_1fr] lg:gap-y-12">
-          <div className="lg:pl-20">
-            <div className="max-w-xs px-2.5 lg:max-w-none text-white">
-              <MetamaskButton title={"Connect metamask"}/>
-            </div>
-          </div>
+      <div className="mx-auto max-w-7xl p-6 sm:px-6 lg:px-8">
+        <Navbar />
+      </div>
+      <div className="mx-auto max-w-7xl p-6 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-6 gap-3 p-6">
+          <NftCards
+            title={'NFTparis'}
+            number={'#1203'}
+            description={'description du NFT'}
+            price={'0.1'}
+            currency={'ETH'}
+            lastSalePrice={'0.1'}
+          />
+          <NftCards
+            title={'NFTparis'}
+            number={'#1203'}
+            description={'description du NFT'}
+            price={'0.1'}
+            currency={'ETH'}
+            lastSalePrice={'0.1'}
+          />
+          <NftCards
+            title={'NFTparis'}
+            number={'#1203'}
+            description={'description du NFT'}
+            price={'0.1'}
+            currency={'ETH'}
+            lastSalePrice={'0.1'}
+          />
         </div>
-      </Container>
+      </div>
     </>
   )
 }
