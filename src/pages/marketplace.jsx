@@ -1,6 +1,4 @@
-import { Container } from '@/components/layouts/Container'
 import Navbar from '@/components/marketplace/Navbar'
-import MetamaskButton from '@/components/ui/MetamaskButton'
 import Head from 'next/head'
 import React from 'react'
 
