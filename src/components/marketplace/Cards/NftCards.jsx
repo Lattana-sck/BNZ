@@ -1,14 +1,15 @@
 import React from 'react'
 import Image from 'next/image'
 import img from '@/images/NFT/nftimage.png'
+
 function NftCards({ title, number, description, price, currency, lastSalePrice }) {
   return (
     <>
-      <div className="col-span-1 max-w-sm overflow-hidden rounded-xl shadow-2xl">
+      <div className="dark:text-white col-span-1 max-w-sm overflow-hidden rounded-xl shadow-md hover:shadow-2xl dark:shadow-teal-500">
         <Image
           className=""
-          width={1000}
-          height={100}
+          width={290}
+          height={200}
           src={img}
           alt="Sunset in the mountains"
         />
@@ -17,9 +18,6 @@ function NftCards({ title, number, description, price, currency, lastSalePrice }
             {title}&nbsp;
             {number}
           </div>
-          {/* <p className="truncate text-center text-base text-gray-700">
-            {description}
-          </p> */}
         </div>
         <div className="px-4 pb-2 text-center">
           <div className="text-center">
@@ -30,12 +28,12 @@ function NftCards({ title, number, description, price, currency, lastSalePrice }
             <span>Last sale : {lastSalePrice}</span>
           </div>
           <div>
-            <span className="m-1 inline-block rounded-full bg-gray-200 px-3 py-1 text-sm font-semibold text-gray-700">
+            <button className="m-1 inline-block rounded-full bg-teal-400 hover:bg-teal-500 px-3 py-1 text-sm font-semibold text-white dark:text-gray-700">
               Buy now
-            </span>
-            <span className="m-1 inline-block rounded-full bg-gray-200 px-3 py-1 text-sm font-semibold text-gray-700">
+            </button>
+            <button className="m-1 inline-block rounded-full bg-teal-400 hover:bg-teal-500 px-3 py-1 text-sm font-semibold text-white dark:text-gray-700">
               Bid
-            </span>
+            </button>
           </div>
         </div>
       </div>
