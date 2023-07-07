@@ -30,7 +30,7 @@ const timeline = [
   { id: 5, name: 'Troisième levée effectuée' },
 ]
 
-function Navbar() {
+function Navbar({ title}) {
   const [open, setOpen] = useState(false)
 
   return (
@@ -105,7 +105,7 @@ function Navbar() {
             className="inset-y-0 left-0 h-full w-20 cursor-pointer pb-3 text-gray-500 hover:text-gray-600"
             aria-hidden="true"
           />
-          <MetamaskButton title={'Wallet'} />
+          <MetamaskButton title={title} />
           <MagnifyingGlassIcon
             className="inset-y-0 left-0 h-full w-8 cursor-pointer pb-3 text-gray-500 hover:text-gray-600"
             aria-hidden="true"

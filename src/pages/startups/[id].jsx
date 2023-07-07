@@ -2,8 +2,6 @@ import React, { useEffect, useState } from 'react'
 import { Container } from '@/components/layouts/Container'
 import { useRouter } from 'next/router'
 import Head from 'next/head'
-import ProgressBar from '@/components/ProgressBar'
-import PieChart from '@/components/PieChart'
 
 function Details() {
   const { query } = useRouter()
