@@ -4,6 +4,7 @@ import Head from 'next/head'
 import React, { useState, useEffect } from 'react'
 // const Web3 = require('web3')
 import Web3 from 'web3'
+import { ethers } from 'ethers';
 
 function marketplace() {
   const [isMetaMaskConnected, setIsMetaMaskConnected] = useState(false)
@@ -89,7 +90,7 @@ function marketplace() {
       console.log('Metamask not installed')
     }
   }
-console.log(isMetaMaskConnected)
+
   return (
     <>
       <Head>
@@ -97,7 +98,7 @@ console.log(isMetaMaskConnected)
         <meta name="description" content="BNZ - marketplace" />
       </Head>
       <div className="mx-12 max-w-7xl p-6 sm:px-6 lg:px-8">
-        {/* <Navbar title={account} /> */}
+        <Navbar />
         <button
           onClick={() => connectWallet()}
           className="w-25 h-10 rounded-full bg-teal-500 px-4 py-2 font-bold text-white hover:bg-teal-400"
