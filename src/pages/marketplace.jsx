@@ -3,12 +3,16 @@ import Navbar from '@/components/marketplace/Navbar'
 import Head from 'next/head'
 import React, { useState, useEffect } from 'react'
 // const Web3 = require('web3')
-import Web3 from 'web3'
 import { ethers } from 'ethers'
+import MintNftForm from '@/components/marketplace/MintNftForm'
 const contractArtifact = require('../../artifacts/contracts/MyNFT.sol/MyNFT.json')
 const contractABI = contractArtifact.abi
+const marketPlaceArtifact = require('../../artifacts/contracts/NFTMarketplace.sol/NFTMarketplace.json')
+const marketPlaceABI = marketPlaceArtifact.abi
 const contractAddress = '0x29758e733C9681EE0075564BeFA2f489C5B773a1'
+require('dotenv').config()
 
+const { PINATA_API_KEY, PINATA_SECRET_API_KEY } = process.env
 function marketplace() {
   // const provider = new ethers.providers.Web3Provider(window.ethereum)
   // const signer = provider.getSigner()
@@ -18,6 +22,7 @@ function marketplace() {
   const [walletAddress, setWalletAddress] = useState('')
   const [NFTs, setNFTs] = useState([])
   const [tokenURI, setTokenURI] = useState('')
+  const [imageFile, setImageFile] = useState(null)
 
   useEffect(() => {
     getCurrentWalletConnected()
@@ -84,20 +89,48 @@ function marketplace() {
   }
 
   const mintNFT = async () => {
-    if (walletAddress) {
-      const provider = new ethers.providers.Web3Provider(window.ethereum)
-      const signer = provider.getSigner()
-      const contract = new ethers.Contract(contractAddress, contractABI, signer)
+    if (walletAddress && imageFile) {
+      const formData = new FormData()
+      formData.append('file', imageFile)
 
       try {
-        const transaction = await contract.mintNFT(walletAddress, tokenURI)
-        console.log('Transaction sent: ' + transaction.hash)
-        await transaction.wait()
-        console.log('NFT minted!')
-        setTokenURI('') // Reset the input field
-        loadNFTs() // Reload NFTs
+        // Envoi du fichier image à Pinata
+        const pinataResponse = await fetch(
+          'https://api.pinata.cloud/pinning/pinFileToIPFS',
+          {
+            method: 'POST',
+            body: formData,
+            headers: {
+              pinata_api_key: process.env.PINATA_API_KEY,
+              pinata_secret_api_key: process.env.PINATA_SECRET,
+            },
+          }
+        )
+        const pinataData = await pinataResponse.json()
+        const tokenURI = "QmeZfqJTZuVaDiPNVCjFECA9ajGKiMvV2J1yMAFq9D3sYG"
+
+        if (tokenURI) {
+          const provider = new ethers.providers.Web3Provider(window.ethereum)
+          const signer = provider.getSigner()
+          const contract = new ethers.Contract(
+            contractAddress,
+            contractABI,
+            signer
+          )
+
+          const transaction = await contract.mintNFT(walletAddress, tokenURI)
+          console.log('Transaction sent:', transaction.hash)
+          await transaction.wait()
+          console.log('NFT minted!')
+          setImageFile(null) // Réinitialiser le fichier image
+          loadNFTs() // Recharger les NFTs
+
+          console.log('Minting successful!') // Confirmation dans la console
+        } else {
+          console.error('Error uploading image to Pinata')
+        }
       } catch (err) {
-        console.error('Error: ', err)
+        console.error('Error:', err)
       }
     }
   }
@@ -130,6 +163,10 @@ function marketplace() {
         <div className="mx-12 grid grid-cols-4 gap-6 p-6">
           {NFTs.map((nft) => (
             <NftCards
+              walletAddress={walletAddress}
+              contractAddress="0x3A97b920760ac2056ab7F9a90805A574749b83DF"
+              contractABI={marketPlaceABI}
+              loadNFTs={loadNFTs}
               id={nft.id}
               uri={nft.uri}
               url={`https://ipfs.io/ipfs/${nft?.uri?.split('//')?.[1]}`}
@@ -138,6 +175,11 @@ function marketplace() {
           ))}
         </div>
       </div>
+      {/* <MintNftForm
+        tokenURI={tokenURI}
+        setTokenURI={setTokenURI}
+        mintNFT={mintNFT}
+      /> */}
       <div className="mx-12 flex max-w-7xl items-center justify-center p-6 font-bold dark:text-white sm:px-6 lg:px-8">
         <form className="mb-4 rounded border-teal-500 px-8 pb-8  pt-6 shadow-xl shadow-teal-500 ">
           <div className="mb-4">
@@ -148,11 +190,9 @@ function marketplace() {
               Créez votre NFT
             </label>
             <input
-              value={tokenURI}
-              onChange={(e) => setTokenURI(e.target.value)}
-              placeholder="Token URI"
-              id="uri"
-              className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
+              type="file"
+              accept="image/*"
+              onChange={(e) => setImageFile(e.target.files[0])}
             />
           </div>
           <div className="flex items-center justify-between">
