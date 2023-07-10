@@ -34,7 +34,7 @@ function Navbar() {
   const [open, setOpen] = useState(false)
 
   return (
-    <div className="sticky top-0 z-40 flex h-16 shrink-0 items-center gap-x-6 border-b border-white/5 px-4 shadow-sm sm:px-6 lg:px-8">
+    <div className="mb-6 sticky top-0 z-40 flex h-16 shrink-0 items-center gap-x-6 border-b border-white/5 px-4 shadow-sm sm:px-6 lg:px-8">
       <div className="flex flex-1 gap-x-4 self-stretch lg:gap-x-6">
         <Transition.Root show={open} as={Fragment}>
           <Dialog as="div" className="relative z-50" onClose={setOpen}>

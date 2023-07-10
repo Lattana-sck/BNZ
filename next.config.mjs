@@ -4,6 +4,9 @@ import rehypePrism from '@mapbox/rehype-prism'
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  images: {
+    domains: ['ipfs.io'],
+  },
   pageExtensions: ['js', 'jsx', 'mdx'],
   reactStrictMode: true,
   experimental: {

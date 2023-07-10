@@ -2,7 +2,7 @@ import React from 'react'
 import Image from 'next/image'
 import img from '@/images/NFT/nftimage.png'
 
-function NftCards({ title, number, description, price, currency, lastSalePrice }) {
+function NftCards({ title, number, description, price, currency, lastSalePrice, url }) {
   return (
     <>
       <div className="dark:text-white col-span-1 max-w-sm overflow-hidden rounded-xl shadow-md hover:shadow-2xl dark:shadow-teal-500">
@@ -10,7 +10,7 @@ function NftCards({ title, number, description, price, currency, lastSalePrice }
           className=""
           width={290}
           height={200}
-          src={img}
+          src={url}
           alt="Sunset in the mountains"
         />
         <div className="px-6 py-4">

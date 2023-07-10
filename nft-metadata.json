@@ -1,0 +1,15 @@
+{
+  "attributes": [
+    {
+      "trait_type": "Breed",
+      "value": "Maltipoo"
+    },
+    {
+      "trait_type": "Eye color",
+      "value": "Mocha"
+    }
+  ],
+  "description": "NFT example",
+  "image": "ipfs://Qmf2U1Rv1UeUiPypiZB8qwJerMspZWoAoBZ7d9N2QvDwKx",
+  "name": "Ramses"
+}
