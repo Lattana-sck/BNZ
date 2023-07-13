@@ -1,22 +1,94 @@
-require('dotenv').config()
 
-const { PINATA_API_KEY, PINATA_SECRET_API_KEY } = process.env
-const pinataSDK = require('@pinata/sdk')
+import axios from 'axios';
+import { AxiosResponse } from "axios";
+import FormData from 'form-data';
 
-export default async function handler(req, res) {
-  // const pinata = pinataSDK(PINATA_API_KEY, PINATA_SECRET_API_KEY)
-  
-  res.status(200).json({ name: 'John Doe' })
-  // pinata
-  //   .testAuthentication()
-  //   .then((result) => {
-  //     //handle successful authentication here
-  //     console.log(result)
-  //     res.status(200).json({ result: result })
-  //   })
-  //   .catch((err) => {
-  //     //handle error here
-  //     console.log(err)
-  //     res.status(200).json({ result: err })
-  //   })
+
+export const uploadJSONToIPFS = async (JSONBody) => {
+    const url = `https://api.pinata.cloud/pinning/pinJSONToIPFS`;
+    //making axios POST request to Pinata ⬇️
+    return axios
+        .post(url, JSONBody, {
+            headers: {
+                Authorization: "Bearer " + process.env.NEXT_PUBLIC_JWT,
+            }
+        })
+        .then(function (response) {
+            return {
+                success: true,
+                pinataURL: "https://gateway.pinata.cloud/ipfs/" + response.data.IpfsHash
+            };
+        })
+        .catch(function (error) {
+            console.log(error)
+            return {
+                success: false,
+                message: error.message,
+            }
+
+        });
+};
+
+export const uploadFileToIPFS = async (file) => {
+    const url = `https://api.pinata.cloud/pinning/pinFileToIPFS`;
+    //making axios POST request to Pinata ⬇️
+
+    let data = new FormData();
+    data.append('file', file);
+
+    const metadata = JSON.stringify({
+        name: 'testname',
+        keyvalues: {
+            exampleKey: 'exampleValue'
+        }
+    });
+    data.append('pinataMetadata', metadata);
+
+    //pinataOptions are optional
+    const pinataOptions = JSON.stringify({
+        cidVersion: 0,
+        customPinPolicy: {
+            regions: [
+                {
+                    id: 'FRA1',
+                    desiredReplicationCount: 1
+                },
+                {
+                    id: 'NYC1',
+                    desiredReplicationCount: 2
+                }
+            ]
+        }
+    });
+    data.append('pinataOptions', pinataOptions);
+
+    return axios
+        .post(url, data, {
+            maxBodyLength: Infinity,
+            headers: {
+                Authorization: "Bearer " + process.env.NEXT_PUBLIC_JWT,
+            }
+        })
+        .then(function (response) {
+            console.log("image uploaded", response.data.IpfsHash)
+            return {
+                success: true,
+                pinataURL: "https://gateway.pinata.cloud/ipfs/" + response.data.IpfsHash
+            };
+        })
+        .catch(function (error) {
+            console.log(error)
+            return {
+                success: false,
+                message: error.message,
+            }
+        });
+
+};
+
+export const GetIpfsUrlFromPinata = (pinataUrl) => {
+    var IPFSUrl = pinataUrl.split("/");
+    const lastIndex = IPFSUrl.length;
+    IPFSUrl = "https://ipfs.io/ipfs/" + IPFSUrl[lastIndex - 1];
+    return IPFSUrl;
 }

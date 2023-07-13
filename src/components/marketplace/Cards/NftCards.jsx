@@ -86,7 +86,7 @@ function NftCards({
             </button>
 
             <button 
-            onClick={() => listNFT("0x6d77ab41E9D04aE7a13E41C40fA948fBd388F24d", id._hex, "0.1")}
+            onClick={() => listNFT("0x6d77ab41E9D04aE7a13E41C40fA948fBd388F24d", id._hex, 0.1)}
             className="m-1 inline-block rounded-full bg-teal-400 px-3 py-1 text-sm font-semibold text-white hover:bg-teal-500 dark:text-gray-700">
               List
             </button>

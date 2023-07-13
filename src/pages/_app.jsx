@@ -3,6 +3,7 @@ import { Footer } from '@/components/layouts/Footer'
 import { Header } from '@/components/layouts/Header'
 import '@/styles/tailwind.css'
 import 'focus-visible'
+import Web3ContextProvider from 'utils/Web3Context'
 
 function usePrevious(value) {
   let ref = useRef()
@@ -27,7 +28,9 @@ export default function App({ Component, pageProps, router }) {
       <div className="relative">
         <Header />
         <main>
-          <Component previousPathname={previousPathname} {...pageProps} />
+          <Web3ContextProvider>
+            <Component previousPathname={previousPathname} {...pageProps} />
+          </Web3ContextProvider>
         </main>
         <Footer />
       </div>

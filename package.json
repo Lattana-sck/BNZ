@@ -11,6 +11,10 @@
   "browserslist": "defaults, not ie <= 11",
   "dependencies": {
     "@alch/alchemy-web3": "^1.4.7",
+    "@chakra-ui/react": "^2.7.1",
+    "@chakra-ui/toast": "^6.1.4",
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
     "@headlessui/react": "^1.7.8",
     "@heroicons/react": "^2.0.17",
     "@mapbox/rehype-prism": "^0.8.0",
@@ -27,6 +31,7 @@
     "fast-glob": "^3.2.11",
     "feed": "^4.2.2",
     "focus-visible": "^5.2.0",
+    "framer-motion": "^10.12.20",
     "mongodb": "^5.1.0",
     "next": "^13.0.2",
     "postcss-focus-visible": "^6.0.4",
@@ -38,6 +43,7 @@
   },
   "devDependencies": {
     "@nomiclabs/hardhat-ethers": "^2.2.3",
+    "@nomiclabs/hardhat-waffle": "^2.0.3",
     "eslint": "8.26.0",
     "eslint-config-next": "13.0.2",
     "ethers": "^5.7.2",
